@@ -5,19 +5,20 @@ import { AppComponent } from './app.component';
 import { ValueComponent } from './value/value.component';
 import { NavComponent } from './nav/nav.component';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from './_serwises/auth/auth.service';
 
 @NgModule({
-  declarations: [		
+  declarations: [
     AppComponent,
-      ValueComponent,
-      NavComponent
-   ],
+    ValueComponent,
+    NavComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

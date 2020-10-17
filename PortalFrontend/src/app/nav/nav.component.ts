@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Login } from '../Models/login.model';
+import { Login } from '../_models/login.model';
 
 @Component({
   selector: 'app-nav',
@@ -8,16 +8,16 @@ import { Login } from '../Models/login.model';
 })
 export class NavComponent implements OnInit {
 
-  model: Login =new Login();
+  model: Login = new Login();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  login(){
+  login() {
     console.log(this.model);
-    
+
   }
 
 }
