@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(model: Login) {
-    return this.http.post(this.baseAddress + this.login, model)
+    return this.http.post(this.baseAddress + 'login', model)
       .pipe(map((response: any) => {
         const user = response;
         if (user) {
