@@ -9,6 +9,11 @@ import { AuthService } from './_serwises/auth/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { AlertifyService } from './_serwises/alertify/alertify.service';
+import { JwtModule } from '@auth0/angular-jwt/lib/angular-jwt.module';
+
+export function getToken() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
