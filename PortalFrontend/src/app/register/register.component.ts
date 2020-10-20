@@ -14,18 +14,21 @@ export class RegisterComponent implements OnInit {
 
   model: Login = new Login();
 
-  constructor(authService: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   register() {
+    this.authService.register(this.model).subscribe(() => {
+      console.log('Rejestracja udana');
+    }, error => console.log(error));
+
     console.log(this.model);
   }
 
   cancel() {
     this.cancelRegister.emit('');
     console.log('Anulowane');
-
   }
 }
