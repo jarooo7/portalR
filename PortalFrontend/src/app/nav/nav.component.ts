@@ -18,9 +18,21 @@ export class NavComponent implements OnInit {
 
   login() {
     this.authService.login(this.model)
-      .subscribe(next =>{console.log('zalogowałeś się');
-      },error => {console.log("wystąpił błąd logowania");
+      .subscribe(next => {
+        console.log('zalogowałeś się');
+      }, error => {
+        console.log('wystąpił błąd logowania');
       });
+  }
+
+  loggedIn() {
+    const token = localStorage.getItem('token');
+    return !!token;
+  }
+
+  logout(){
+    localStorage.removeItem('token');
+    console.log('zostałeś wylogowany');
   }
 
 }
