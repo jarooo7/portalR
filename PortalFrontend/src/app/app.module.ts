@@ -8,21 +8,25 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from './_serwises/auth/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
+import { AlertifyService } from './_serwises/alertify/alertify.service';
 
 @NgModule({
-  declarations: [		
+  declarations: [
     AppComponent,
     ValueComponent,
     NavComponent,
-      HomeComponent,
-      RegisterComponent
-   ],
+    HomeComponent,
+    RegisterComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    AlertifyService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

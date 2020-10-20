@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 // import { EventEmitter } from 'protractor';
 import { Login } from '../_models/login.model';
 import { AuthService } from '../_serwises/auth/auth.service';
+import {AlertifyService } from '../_serwises/alertify/alertify.service';
 
 @Component({
   selector: 'app-register',
@@ -14,15 +15,15 @@ export class RegisterComponent implements OnInit {
 
   model: Login = new Login();
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private alertify: AlertifyService) { }
 
   ngOnInit() {
   }
 
   register() {
     this.authService.register(this.model).subscribe(() => {
-      console.log('Rejestracja udana');
-    }, error => console.log(error));
+      this.alertify.success('Rejestracja udana');
+    }, error => this.alertify.error('Wystąpił błąd rejestracji'));
 
     console.log(this.model);
   }
