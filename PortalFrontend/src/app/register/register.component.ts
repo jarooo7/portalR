@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from '../_serwises/auth/auth.service';
 import {AlertifyService } from '../_serwises/alertify/alertify.service';
-import { Login } from '../_models/Login.model';
+import { Login } from '../_models/login.model';
 
 @Component({
   selector: 'app-register',
