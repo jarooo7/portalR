@@ -1,8 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-// import { EventEmitter } from 'protractor';
-import { Login } from '../_models/login.model';
 import { AuthService } from '../_serwises/auth/auth.service';
 import {AlertifyService } from '../_serwises/alertify/alertify.service';
+import { Login } from '../_models/Login.model';
 
 @Component({
   selector: 'app-register',

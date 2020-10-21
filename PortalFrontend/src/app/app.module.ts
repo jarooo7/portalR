@@ -9,7 +9,10 @@ import { AuthService } from './_serwises/auth/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { AlertifyService } from './_serwises/alertify/alertify.service';
-import { JwtModule } from '@auth0/angular-jwt/lib/angular-jwt.module';
+
+import { UserService } from './_serwises/user/user.service';
+import { UsersListComponent } from './user/users-list/users-list.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
 export function getToken() {
   return localStorage.getItem('token');
@@ -21,16 +24,25 @@ export function getToken() {
     ValueComponent,
     NavComponent,
     HomeComponent,
+    UsersListComponent,
     RegisterComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: getToken,
+        allowedDomains: ['localhost:5000'],
+        disallowedRoutes: ['http://localhost:5000/auth/'],
+      },
+    }),
   ],
   providers: [
     AuthService,
-    AlertifyService
+    AlertifyService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
