@@ -8,7 +8,7 @@ namespace Portal.API.DTOs
         public string UserName { get; set; }
 
         public string Gender { get; set; }
-        public DateTime Age { get; set; }
+        public int Age { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastAction { get; set; }
         public string Country { get; set; }

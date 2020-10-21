@@ -11,7 +11,7 @@ namespace Portal.API.DTOs
      
 
         public string Gender { get; set; }
-        public DateTime Age { get; set; }
+        public int Age { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastAction { get; set; }
         public string Country { get; set; }
@@ -38,7 +38,7 @@ namespace Portal.API.DTOs
         public string ILike { get; set; }
         public string IDontLike { get; set; }
 
-        public ICollection<Photo> Photos { get; set; }
+        public ICollection<PhotosForDetailedDto> Photos { get; set; }
         public string PhotoUrl { get; set; }
     
     }
