@@ -9,10 +9,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
-
- private baseAddress =  environment.apiUrl + 'auth/';
- dekoded: any;
- jwthelper = new JwtHelperService();
+  private baseAddress = environment.apiUrl + 'auth/';
+  dekoded: any;
+  jwthelper = new JwtHelperService();
   constructor(private http: HttpClient) { }
 
   login(model: Login) {
@@ -26,15 +25,13 @@ export class AuthService {
       }));
   }
 
-  register(model: Login){
+  register(model: Login) {
     return this.http.post(this.baseAddress + 'register', model);
   }
 
-  loggedIn(){
+  loggedIn() {
     const token = localStorage.getItem('token');
     this.dekoded = this.jwthelper.decodeToken(token);
     return !this.jwthelper.isTokenExpired(token);
   }
-
-
 }
