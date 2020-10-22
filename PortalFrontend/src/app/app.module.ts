@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { AlertifyService } from './_serwises/alertify/alertify.service';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { UserService } from './_serwises/user/user.service';
 import { UsersListComponent } from './user/users-list/users-list.component';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -18,6 +20,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 export function getToken() {
   return localStorage.getItem('token');
@@ -45,7 +48,9 @@ export function getToken() {
         disallowedRoutes: ['http://localhost:5000/auth/'],
       },
     }),
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    BrowserAnimationsModule,
+    BsDropdownModule.forRoot()
   ],
   providers: [
     AuthService,

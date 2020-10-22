@@ -9,7 +9,7 @@ import { AuthService } from '../_serwises/auth/auth.service';
 })
 export class AuthGuard implements CanActivate {
 
- 
+
   constructor(private auth: AuthService, private router: Router, private alertify: AlertifyService) {
 
   }
@@ -17,9 +17,10 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): boolean {
 
-    if(this.auth.loggedIn()){
-    return true;}
-    this.alertify.error("Nie masz uprawnień");
+    if (this.auth.loggedIn()) {
+      return true;
+    }
+    this.alertify.error('Nie masz uprawnień');
     this.router.navigate(['/home']);
     return false;
   }
