@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-info">
   <div class="container">
     <a class="navbar-brand" [routerLink]="['/home']">Portal</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
@@ -6,15 +6,15 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-      <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/uzytkownicy']">Użytkownicy</a>
+      <ul *ngIf="loggedIn()" class="navbar-nav mr-auto ml-4">
+        <li class="nav-item mx-2" routerLinkActive="active">
+          <a class="nav-link h4" [routerLink]="['/uzytkownicy']"><i class="fa fa-user" aria-hidden="true"></i></a>
         </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link" [routerLink]="['/polubienia']">Polubienia</a>
+        <li class="nav-item mx-2" routerLinkActive="active">
+          <a class="nav-link h4" [routerLink]="['/polubienia']"><i class="fa fa-heart" aria-hidden="true"></i></a>
         </li>
-        <li class="nav-item" routerLinkActive="active">
-          <a class="nav-link " [routerLink]="['/wiadomosci']">Wiadomości</a>
+        <li class="nav-item mx-2" routerLinkActive="active">
+          <a class="nav-link h4" [routerLink]="['/wiadomosci']"><i class="fa fa-comment" aria-hidden="true"></i></a>
         </li>
         
       </ul>
@@ -24,9 +24,9 @@
           Witaj {{authService.dekoded?.unique_name |titlecase}}!
         </a>
         <div class="dropdown-menu mt-3" *dropdownMenu>
-          <a class="dropdown-item"><i class="fa fa-user"></i> Edytuj profil</a>
+          <a class="dropdown-item"><i class="fa fa-user mr-2"></i> Edytuj profil</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" (click)="logout()"><i class="fa fa-singout"></i> Wyloguj</a>
+          <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out mr-2"></i> Wyloguj</a>
         </div>
       </div>
     
