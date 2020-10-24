@@ -21,6 +21,9 @@ import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ErrorInterceptorProvider } from './_serwises/error/error.interceptor';
+import { UserCardComponent } from './user/user-card/user-card.component';
+import { UserDetailComponent } from './user/user-detail/user-detail.component';
 
 export function getToken() {
   return localStorage.getItem('token');
@@ -35,7 +38,9 @@ export function getToken() {
     UsersListComponent,
     RegisterComponent,
     LikesComponent,
-    MessagesComponent
+    MessagesComponent,
+    UserCardComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,8 @@ export function getToken() {
     AuthService,
     AlertifyService,
     UserService,
-    AuthGuard
+    AuthGuard,
+    ErrorInterceptorProvider
   ],
   bootstrap: [AppComponent]
 })

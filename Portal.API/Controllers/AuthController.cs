@@ -44,7 +44,7 @@ namespace Portal.API.Controllers
         {
             var userFromRepo = await _repository.Login(userForLoginDto.UserName.ToLower(), userForLoginDto.password);
             if (userFromRepo == null)
-                return Unauthorized();
+                return Unauthorized("Błedne dane logowania sprawdź login i hasło");
             // Create JWT
             var claims = new[]{
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),

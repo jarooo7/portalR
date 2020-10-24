@@ -1,5 +1,8 @@
-<div>
-  <p *ngFor="let user of users">
-    {{user.userName}} - {{user.age}} -{{user.city}}
-  </p>
+<div class="container">
+
+  <div class="row">
+    <div *ngFor="let user of users" class="col-lg-4 col-md-6 col-sm-12">
+      <app-user-card [user]="user"></app-user-card>
+    </div>
+  </div>
 </div>
