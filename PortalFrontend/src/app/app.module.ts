@@ -25,6 +25,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ErrorInterceptorProvider } from './_serwises/error/error.interceptor';
 import { UserCardComponent } from './user/user-card/user-card.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
+import { UserDetailResolver } from './_resolvers/user-detail.resolver';
+import { UserListResolver } from './_resolvers/user-list.resolver';
 
 export function getToken() {
   return localStorage.getItem('token');
@@ -64,7 +66,9 @@ export function getToken() {
     AlertifyService,
     UserService,
     AuthGuard,
-    ErrorInterceptorProvider
+    ErrorInterceptorProvider,
+    UserDetailResolver,
+    UserListResolver
   ],
   bootstrap: [AppComponent]
 })

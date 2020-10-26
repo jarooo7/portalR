@@ -13,7 +13,6 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError(error => {
         if (error instanceof HttpErrorResponse) {
 
-     
 
           const applicationError = error.headers.get('Application-Error');
 
