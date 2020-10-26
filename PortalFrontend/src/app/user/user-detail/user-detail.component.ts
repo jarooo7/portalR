@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {NgxGalleryOptions} from '@kolkov/ngx-gallery';
+import {NgxGalleryImage} from '@kolkov/ngx-gallery';
+import {NgxGalleryAnimation} from '@kolkov/ngx-gallery';
 import { User } from 'src/app/_models/User.model';
 import { AlertifyService } from 'src/app/_serwises/alertify/alertify.service';
 import { UserService } from 'src/app/_serwises/user/user.service';
@@ -12,6 +15,8 @@ import { UserService } from 'src/app/_serwises/user/user.service';
 export class UserDetailComponent implements OnInit {
 
   user: User;
+  galleryOptions: NgxGalleryOptions[];
+  galleryImages: NgxGalleryImage[];
   constructor(
     private userService: UserService,
     private alerti: AlertifyService,
@@ -22,15 +27,46 @@ export class UserDetailComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.user = data.user;
     });
-    // this.loadUser();
+    this.startgallery();
   }
-  // loadUser() {
-  //   this.userService.getUser(+this.route.snapshot.params.id).subscribe(
-  //     (user: User) => {
-  //       this.user = user;
-  //     }, error => {
-  //       this.alerti.error(error);
-  //     }
-  //   );
-  // }
+
+  startgallery() {
+    this.galleryOptions = [
+      {
+        width: '600px',
+        height: '400px',
+        thumbnailsColumns: 4,
+        imageAnimation: NgxGalleryAnimation.Slide
+      },
+      // max-width 800
+      {
+        breakpoint: 800,
+        width: '100%',
+        height: '600px',
+        imagePercent: 80,
+        thumbnailsPercent: 20,
+        thumbnailsMargin: 20,
+        thumbnailMargin: 20
+      },
+      // max-width 400
+      {
+        breakpoint: 400,
+        preview: false
+      }
+    ];
+
+    this.galleryImages = this.getImages();
+  }
+  getImages() {
+    const imagesUrl = [];
+    this.user.photos.forEach(e => {
+      imagesUrl.push({
+        small: e.url,
+        medium: e.url,
+        big: e.url,
+        description: e.description
+      });
+    });
+    return imagesUrl;
+  }
 }
