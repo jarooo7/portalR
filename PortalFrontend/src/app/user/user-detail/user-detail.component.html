@@ -1,1 +1,109 @@
-{{user?.userName}}
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-sm-12">
+      <div class="card">
+        <img [src]="user?.photoUrl" class="card-img-top img-radious img-thumbnail">
+        <div class="card-body text-center">
+          <h4 class="card-title">{{user?.userName}}, {{user?.age}}</h4>
+          <p class="card-text">{{user?.city}}, {{user?.country}}</p>
+          <button class="btn btn-danger  btn-card">
+            <i class="fa fa-heart"></i>
+          </button>
+          <button class="btn btn-success  btn-card">
+            <i class="fa fa-comment"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 col-sm-12">
+      <div class="tab-panel">
+        <tabset class="user-tabset">
+          <tab heading="Informacje" >
+            <!-- 
+    children: string;
+    languages: string; -->
+            <table>
+              <tr>
+                <td>
+                  <h5> <i class="fa fa-arrows-v" aria-hidden="true"></i> Wzrost</h5>
+                  <p>{{user?.growth}} cm</p>
+                </td>
+                <td>
+                  <h5><i class="fa fa-gratipay" aria-hidden="true"></i> Status</h5>
+                  <p>{{user?.martialStatus}}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h5><i class="fa fa-graduation-cap" aria-hidden="true"></i> Wykształcenie</h5>
+                  <p>{{user?.edukation}} </p>
+                </td>
+                <td>
+                  <h5><i class="fa fa-briefcase" aria-hidden="true"></i> Praca</h5>
+                  <p>{{user?.profession}}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h5><i class="fa fa-eye" aria-hidden="true"></i> Kolor oczu</h5>
+                  <p>{{user?.eyeColor}} </p>
+                </td>
+                <td>
+                  <h5><i class="fa fa-scissors" aria-hidden="true"></i> Kolor włosów</h5>
+                  <p>{{user?.hairColor}}</p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <h5><i class="fa fa-language" aria-hidden="true"></i> Języki</h5>
+                  <p>{{user?.languages}} </p>
+                </td>
+                <td>
+                  <h5><i class="fa fa-child" aria-hidden="true"></i> Dzieci</h5>
+                  <p>{{user?.children}}</p>
+                </td>
+              </tr>
+            </table>
+          </tab>
+          <!-- description: string;
+          personality: string;
+          lookingFor: string;
+          //
+          interests: string;
+          freeTime: string;
+          //
+          iLike: string;
+          iDontLike: string;
+          //
+          photos: Photo[];
+          photoUrl: string; -->
+          <tab heading="O mnie">
+            <h5><i class="fa fa-align-left" aria-hidden="true"></i> Opis</h5>
+            <p>{{user?.description}}</p>
+            <h5><i class="fa fa-user-circle-o" aria-hidden="true"></i> Osobowość</h5>
+            <p>{{user?.personality}}</p>
+            <h5><i class="fa fa-search" aria-hidden="true"></i> Szukam</h5>
+            <p>{{user?.lookingFor}}</p>
+          </tab>
+          <tab heading="Zainteresowania">
+            <h5><i class="fa fa-puzzle-piece" aria-hidden="true"></i> Zainteresowania</h5>
+            <p>{{user?.interests}}</p>
+            <h5> <i class="fa fa-clock-o" aria-hidden="true"></i> Czas wolny</h5>
+            <p>{{user?.freeTime}}</p>
+            <h5><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Lubię</h5>
+            <p>{{user?.iLike}}</p>
+            <h5><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> Nie lubię</h5>
+            <p>{{user?.iDontLike}}</p>
+          </tab>
+          <tab heading="Zdjęcia">
+            Tutaj będa zdjęcia
+          </tab>
+          <tab heading="Wiadomości">
+            Tutaj będa Wiadomości
+          </tab>
+        </tabset>
+      </div>
+
+    </div>
+  </div>
+</div>
