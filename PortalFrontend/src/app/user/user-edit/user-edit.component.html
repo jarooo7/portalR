@@ -1,1 +1,141 @@
-{{user.userName}}
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+    <h4>Edycja profilu</h4>
+  </div>
+  <div class="col-md-8">
+    <div *ngIf="editForm.dirty" class="alert alert-warning">
+      <strong>Informacja:</strong> dokonałeś zmian, niezapisane zmiany zostaną utracone!
+    </div>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 col-sm-12">
+      <div class="card">
+        <img [src]="user?.photoUrl" class="card-img-top img-radious img-thumbnail">
+        <div class="card-body text-center">
+          <h4 class="card-title">{{user?.userName}}, {{user?.age}}</h4>
+          <p class="card-text">{{user?.city}}, {{user?.country}}</p>
+          <button [disabled]="!editForm.dirty" class="btn btn-info btn-block" form = "editForm">
+            Zapisz zmiany
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 col-sm-12">
+      <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser();">
+        <div class="tab-panel">
+          <tabset class="user-tabset">
+            <tab heading="Informacje">
+              <table>
+                <tr>
+                  <td class="form-group px-4">
+
+                    <h5> <i class="fa fa-arrows-v" aria-hidden="true"></i> Wzrost</h5>
+                    <input [(ngModel)]="user.growth" type="text" name="growth" class="form-control ">
+                  </td>
+                  <td class="form-group px-4">
+                    <h5><i class="fa fa-gratipay" aria-hidden="true"></i> Status</h5>
+                    <select [(ngModel)]="user.martialStatus" name="martialStatus" class="form-control" [value] = "user.martialStatus" >
+                      <option value="wolny">wolny</option>
+                      <option value="w związku">w związku</option>
+                      <option value="zaręczona/zaręczony">zaręczona/zaręczony</option>
+                      <option value="żonaty/zamężna">żonaty/zamężna</option>
+                      <option value="wdowa/wdowiec">wdowa/wdowiec</option>
+                      <option value="po rozwodzie">po rozwodzie</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="form-group px-4">
+                    <h5><i class="fa fa-graduation-cap" aria-hidden="true"></i> Wykształcenie</h5>
+                    <select [(ngModel)]="user.edukation" class="form-control" name="edukation" [value] = "user.edukation" >
+                      <option value="podstawowe">podstawowe</option>
+                      <option value="zawodowe">zawodowe</option>
+                      <option value="średnie">średnie</option>
+                      <option value="wyższe">wyższe</option>
+                    </select>
+                  </td>
+                  <td class="form-group px-4">
+                    <h5><i class="fa fa-briefcase" aria-hidden="true"></i> Praca</h5>
+                    <input [(ngModel)]="user.profession" type="text" name="profession" class="form-control ">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="form-group px-4">
+                    <h5><i class="fa fa-eye" aria-hidden="true"></i> Kolor oczu</h5>
+                    <select [(ngModel)]="user.eyeColor" class="form-control" name="eyeColor" [value] = "user.eyeColor" >
+                      <option value="brązowe">Brązowe</option>
+                      <option value="ciemnobrązowe">Ciemnobrązowe</option>
+                      <option value="piwne">Piwne</option>
+                      <option value="zielone">Zielone</option>
+                      <option value="szare">Szare</option>
+                      <option value="niebieskie">Niebieskie</option>
+                    </select>
+                  </td>
+                  <td class="form-group px-4">
+                    <h5><i class="fa fa-scissors" aria-hidden="true"></i> Kolor włosów</h5>
+                    <input [(ngModel)]="user.hairColor" type="text" name="hairColor" class="form-control">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="form-group px-4">
+                    <h5><i class="fa fa-language" aria-hidden="true"></i> Języki</h5>
+                    <textarea class="form-control"[(ngModel)]="user.languages"name="languages"  rows="1"></textarea>
+                
+                  </td>
+                  <td class="form-group px-4">
+                    <h5><i class="fa fa-child" aria-hidden="true"></i> Dzieci</h5>
+                    <select [(ngModel)]="user.children" class="form-control" name="children" [value] = "user.children" >
+                      <option value="tak">Tak</option>
+                      <option value="nie">Nie</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="form-group px-4">
+                    <h5><i class="fa fa-venus-mars" aria-hidden="true"></i> Płęć</h5>
+                    <select [(ngModel)]="user.gender" class="form-control" name="gender" [value] = "user.gender" >
+                      <option value="kobieta">Kobieta</option>
+                      <option value="mężczyzna">Mężczyzna</option>
+                    </select>
+                  </td>
+                  <td class="form-group px-4">
+                    <h5><i class="fa fa-map-marker" aria-hidden="true"></i> Miasto</h5>
+                    <input [(ngModel)]="user.city" type="text" name="city" class="form-control">
+                  </td>
+                </tr>
+                <tr><td class="form-group px-4">
+                  <h5><i class="fa fa-globe" aria-hidden="true"></i> Kraj</h5>
+                  <input [(ngModel)]="user.country" type="text" name="country" class="form-control">
+                </td>
+              </tr>
+              </table>
+            </tab>
+            <tab heading="O mnie">
+              <h5><i class="fa fa-align-left" aria-hidden="true"></i> Opis</h5>
+              <textarea name="description" class="form-control" [(ngModel)]="user.description"  rows="3"></textarea>
+              <h5><i class="fa fa-user-circle-o" aria-hidden="true"></i> Osobowość</h5>
+              <textarea name="personality" class="form-control" [(ngModel)]="user.personality"  rows="2"></textarea>
+              <h5><i class="fa fa-search" aria-hidden="true"></i> Szukam</h5>
+              <textarea name="lookingFor" class="form-control" [(ngModel)]="user.lookingFor"  rows="1"></textarea>
+            </tab>
+            <tab heading="Zainteresowania">
+              <h5><i class="fa fa-puzzle-piece" aria-hidden="true"></i> Zainteresowania</h5>
+              <textarea name="interests" class="form-control" [(ngModel)]="user.interests"  rows="2"></textarea>
+              <h5> <i class="fa fa-clock-o" aria-hidden="true"></i> Czas wolny</h5>
+              <textarea name="freeTime" class="form-control" [(ngModel)]="user.freeTime"  rows="2"></textarea>
+              <h5><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Lubię</h5>
+              <textarea name="iLike" class="form-control" [(ngModel)]="user.iLike"  rows="2"></textarea>
+              <h5><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> Nie lubię</h5>
+              <textarea name="iDontLike" class="form-control" [(ngModel)]="user.iDontLike"  rows="2"></textarea>
+            </tab>
+            <tab heading="Zdjęcia">
+              <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery> -->
+            </tab>
+          </tabset>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

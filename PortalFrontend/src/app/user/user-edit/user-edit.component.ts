@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/_models/User.model';
+import { AlertifyService } from 'src/app/_serwises/alertify/alertify.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -10,13 +12,18 @@ import { User } from 'src/app/_models/User.model';
 export class UserEditComponent implements OnInit {
 
   user: User;
+  @ViewChild('editForm') editForm: NgForm;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private alerti: AlertifyService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.user = data.user;
     });
   }
-
+  updateUser() {
+    console.log(this.user);
+    this.alerti.success('Profil pomyślnie zaktualizowany');
+    this.editForm.reset(this.user);
+  }
 }
