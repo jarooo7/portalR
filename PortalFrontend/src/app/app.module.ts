@@ -30,6 +30,7 @@ import { UserListResolver } from './_resolvers/user-list.resolver';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/user-edit.resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard.ts';
 
 export function getToken() {
   return localStorage.getItem('token');
@@ -74,7 +75,8 @@ export function getToken() {
     ErrorInterceptorProvider,
     UserDetailResolver,
     UserListResolver,
-    UserEditResolver
+    UserEditResolver,
+    PreventUnsavedChanges
   ],
   bootstrap: [AppComponent]
 })
