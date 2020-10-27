@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -35,6 +36,22 @@ namespace Portal.API.Controllers
             var user = await _repo.GetUser(id);
             var userToReturn = _mapper.Map<UserForDetailedDto>(user);
             return Ok(userToReturn);
+        }
+         [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UserForDetailedDto userForDetailedDto)
+        {
+            if(id!= int.Parse( User.FindFirst(ClaimTypes.NameIdentifier).Value)){
+                return Unauthorized("Nie masz dostępu do aktualizacji danych");
+            }
+            var userFromRepo = await _repo.GetUser(id);
+
+            _mapper.Map(userForDetailedDto,userFromRepo);
+            if(await _repo.SaveAll()){
+                return NoContent();
+            }
+            throw new Exception ($"Aktualizacja użytkownika o id: {id} nie powiodła się");
+
+            ;
         }
 
     }
