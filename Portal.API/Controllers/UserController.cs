@@ -38,7 +38,7 @@ namespace Portal.API.Controllers
             return Ok(userToReturn);
         }
          [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, UserForDetailedDto userForDetailedDto)
+        public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto userForDetailedDto)
         {
             if(id!= int.Parse( User.FindFirst(ClaimTypes.NameIdentifier).Value)){
                 return Unauthorized("Nie masz dostępu do aktualizacji danych");
@@ -50,8 +50,6 @@ namespace Portal.API.Controllers
                 return NoContent();
             }
             throw new Exception ($"Aktualizacja użytkownika o id: {id} nie powiodła się");
-
-            ;
         }
 
     }
