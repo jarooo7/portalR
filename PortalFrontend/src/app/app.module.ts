@@ -31,6 +31,8 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UserEditResolver } from './_resolvers/user-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard.ts';
+import { PhotosComponent } from './user/photos/photos.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 export function getToken() {
   return localStorage.getItem('token');
@@ -48,7 +50,8 @@ export function getToken() {
     MessagesComponent,
     UserCardComponent,
     UserDetailComponent,
-    UserEditComponent
+    UserEditComponent,
+    PhotosComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ export function getToken() {
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    NgxGalleryModule
+    NgxGalleryModule,
+    FileUploadModule
   ],
   providers: [
     AuthService,

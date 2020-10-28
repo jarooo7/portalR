@@ -131,7 +131,7 @@
               <textarea name="iDontLike" class="form-control" [(ngModel)]="user.iDontLike"  rows="2"></textarea>
             </tab>
             <tab heading="Zdjęcia">
-              <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery> -->
+              <app-photos [photos]="user.photos"></app-photos>
             </tab>
           </tabset>
         </div>
