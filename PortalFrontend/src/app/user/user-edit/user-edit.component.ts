@@ -39,7 +39,7 @@ export class UserEditComponent implements OnInit {
         () => {
           this.alerti.success('Profil pomyślnie zaktualizowany');
           this.editForm.reset(this.user);
-        }, error => { this.alerti.error(error);}
+        }, error => { this.alerti.error(error); }
       );
   }
 }
