@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Portal.API.Models;
@@ -12,7 +13,7 @@ namespace Portal.API.Data
         {
             _context = context;
         }
-
+     
         public async Task<Photo> GetPhoto(int id)
         {
             Photo photo = await _context.Photos.FirstOrDefaultAsync(p=>p.Id ==id);
@@ -29,6 +30,10 @@ namespace Portal.API.Data
         {
             var users =  await _context.Users.Include(p=>p.Photos).ToListAsync();
             return users;
+        }
+         public async Task<Photo> GetMainPhotoForUser(int userId)
+        {
+            return await _context.Photos.Where(u => u.UserId == userId).FirstOrDefaultAsync(p => p.isMain);
         }
     }
 }

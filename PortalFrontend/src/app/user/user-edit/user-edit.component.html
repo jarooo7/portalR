@@ -131,7 +131,7 @@
               <textarea name="iDontLike" class="form-control" [(ngModel)]="user.iDontLike"  rows="2"></textarea>
             </tab>
             <tab heading="Zdjęcia">
-              <app-photos [photos]="user.photos"></app-photos>
+              <app-photos (getUserPhotoChange)="UpdateMainPhoto($event)" [photos]="user.photos"></app-photos>
             </tab>
           </tabset>
         </div>

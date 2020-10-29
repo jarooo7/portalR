@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
+
 import { Photo } from 'src/app/_models/Photo.model';
 import { AlertifyService } from 'src/app/_serwises/alertify/alertify.service';
 import { AuthService } from 'src/app/_serwises/auth/auth.service';
@@ -14,6 +15,7 @@ const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 })
 export class PhotosComponent implements OnInit {
   @Input() photos: Photo[];
+  @Output() getUserPhotoChange = new EventEmitter<string>();
 
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
@@ -21,9 +23,11 @@ export class PhotosComponent implements OnInit {
   currentMain: Photo;
   response = '';
 
-  constructor(private authService: AuthService,
-              private userService: UserService,
-              private alertify: AlertifyService) { }
+
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.initializeUploader();
@@ -47,7 +51,7 @@ export class PhotosComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
 
     this.uploader.onSuccessItem = (item, respons, status, headres) => {
-      if (respons){
+      if (respons) {
         const res: Photo = JSON.parse(respons);
         const photo = {
           id: res.id,
@@ -67,6 +71,19 @@ export class PhotosComponent implements OnInit {
     };
   }
 
+  setMain(photo: Photo) {
+    this.userService.setMainPhoto(this.authService.dekoded.nameid, photo.id)
+      .subscribe(() => {
+        console.log('success');
+        this.currentMain = this.photos.filter(p => p.isMain === true)[0];
+        this.currentMain.isMain = false;
+        photo.isMain = true;
+        this.getUserPhotoChange.emit(photo.url);
+      }, error => {
+        this.alertify.error(error);
+      }
+      );
+  }
 
 
 

@@ -66,7 +66,7 @@
   <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let photo of photos">
     <img src="{{photo.url}}" alt="{{photo.description}}" class="img-thumbnail p-1">
     <div class="text-cener mb-4">
-      <button type="button" class="btn btn-sm btn-block" [ngClass]="photo.isMain ? 'btn-success active' : 'btn-info'"
+      <button type="button" (click)="setMain(photo)" class="btn btn-sm btn-block" [ngClass]="photo.isMain ? 'btn-success active' : 'btn-info'"
         [disabled]="photo.isMain">Główne</button>
       <button type="button" class="btn btn-sm btn-danger btn-block mb-4" [disabled]="photo.isMain"><i
           class="fa fa-trash-o"></i></button>
