@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,10 +19,12 @@ namespace Portal.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repository;
-        public IConfiguration _config { get; set; }
+        public IConfiguration _config ;
+        private readonly IMapper _mapper;
 
-        public AuthController(IAuthRepository repository, IConfiguration config)
+        public AuthController(IAuthRepository repository, IConfiguration config, IMapper mapper)
         {
+            _mapper = mapper;
             _config = config;
             _repository = repository;
         }
@@ -53,8 +56,9 @@ namespace Portal.API.Controllers
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSetings:Token").Value));
 
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-            
-            var TokenDescriptor =new SecurityTokenDescriptor{
+
+            var TokenDescriptor = new SecurityTokenDescriptor
+            {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddHours(1),
                 SigningCredentials = cred
@@ -62,7 +66,13 @@ namespace Portal.API.Controllers
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(TokenDescriptor);
-            return Ok(new{token = tokenHandler.WriteToken(token)});
+
+            var user =_mapper.Map<UserForListDto>(userFromRepo);
+
+            return Ok(new {
+                 token = tokenHandler.WriteToken(token),
+                 user
+                  });
         }
     }
 }

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 
 import { Photo } from 'src/app/_models/Photo.model';
+import { User } from 'src/app/_models/User.model';
 import { AlertifyService } from 'src/app/_serwises/alertify/alertify.service';
 import { AuthService } from 'src/app/_serwises/auth/auth.service';
 import { UserService } from 'src/app/_serwises/user/user.service';
@@ -79,6 +80,12 @@ export class PhotosComponent implements OnInit {
         this.currentMain.isMain = false;
         photo.isMain = true;
         this.getUserPhotoChange.emit(photo.url);
+        const user: User = JSON.parse(localStorage.getItem('user'));
+        user.photoUrl = photo.url;
+        if (user) {
+          this.authService.currentUser = user;
+        }
+        localStorage.setItem('user', JSON.stringify(user));
       }, error => {
         this.alertify.error(error);
       }
