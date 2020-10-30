@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success">
   <div class="container">
     <a class="navbar-brand" [routerLink]="['/home']">Portal</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
       aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
+    </button> -->
 
       <ul *ngIf="loggedIn()" class="navbar-nav mr-auto ml-4 ">
         <li class="nav-item mx-2" routerLinkActive="active">
@@ -19,16 +19,15 @@
         
       </ul>
 
-      <div *ngIf="loggedIn()" class="dropdown " dropdown>
+      <div *ngIf="loggedIn()" class="dropdown  mr-5" dropdown>
         
         <a class="dropdown-toggle text-light" dropdownToggle>
           <span class="mr-3"><img [src]="authService.currentUser.photoUrl"></span>
-          Witaj {{authService.dekoded?.unique_name |titlecase}}!
+          <!-- Witaj {{authService.dekoded?.unique_name |titlecase}}! -->
         </a>
-        <div class="dropdown-menu mt-3" *dropdownMenu>
-          <a class="dropdown-item"  [routerLink]="['/uzytkownicy/edycja']"><i class="fa fa-user mr-2 "></i> Edytuj profil</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out mr-2"></i> Wyloguj</a>
+        <div class="dropdown-menu " *dropdownMenu>
+          <a class="dropdown-item text-light"  [routerLink]="['/uzytkownicy/edycja']"><i class="fa fa-user mr-2 "></i> Edytuj profil</a>
+          <a class="dropdown-item text-light" (click)="logout()"><i class="fa fa-sign-out mr-2"></i> Wyloguj</a>
         </div>
       </div>
     
