@@ -91,6 +91,17 @@ export class PhotosComponent implements OnInit {
       }
       );
   }
+  delPhoto(id: number) {
+    this.alertify.confirm('Usówanie zdjęcia', 'czy jesteś pewien że chcesz usunąć zdjęcie', () => {
+      this.userService.delPhoto(this.authService.dekoded.nameid, id)
+        .subscribe(() => {
+          this.photos.splice(this.photos.findIndex(p => p.id === id), 1);
+          this.alertify.success('zdjęcie zostało usunięte');
+        },
+          error => this.alertify.error('Nie udało sie usunąc zdjęcia')
+        );
+    });
+  }
 
 
 

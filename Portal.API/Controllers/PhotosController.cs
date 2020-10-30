@@ -108,12 +108,46 @@ namespace Portal.API.Controllers
                 return BadRequest("Wybrane zdjęcie już jest zdjęciem głównym");
 
             var currentMainPhoto = await _repository.GetMainPhotoForUser(userId);
-            currentMainPhoto.isMain=false;
-            photoFromRepo.isMain=true;
-            if(await _repository.SaveAll()){
+            currentMainPhoto.isMain = false;
+            photoFromRepo.isMain = true;
+            if (await _repository.SaveAll())
+            {
                 return NoContent();
             }
-             return BadRequest("Nie można ustawić zdjęcia jako głównego");
+            return BadRequest("Nie można ustawić zdjęcia jako głównego");
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DelPhoto(int userId, int id)
+        {
+            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            {
+                return Unauthorized();
+            }
+            var user = await _repository.GetUser(userId);
+            if (!user.Photos.Any(p => p.Id == id))
+            {
+                return Unauthorized();
+            }
+            var photoFromRepo = await _repository.GetPhoto(id);
+            if (photoFromRepo.isMain)
+                return BadRequest("Nie można usówac zdjęcia głównego");
+            if (photoFromRepo.Public_id != null)
+            {
+                var delParams = new DeletionParams(photoFromRepo.Public_id);
+                var result = _cloudinary.Destroy(delParams);
+
+                if (result.Result == "ok")
+                {
+                    _repository.Delete(photoFromRepo);
+                }
+            }else{
+                _repository.Delete(photoFromRepo);
+            }
+            if (await _repository.SaveAll())
+            {
+                return NoContent();
+            }
+            return BadRequest("Nie można usunąć zdjęcia");
         }
     }
 }

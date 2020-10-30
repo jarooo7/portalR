@@ -6,23 +6,30 @@ declare let alertify: any;
 })
 export class AlertifyService {
 
-constructor() { }
+  constructor() { }
 
-success(msg: string){
-  alertify.success(msg);
-}
+  success(msg: string) {
+    alertify.success(msg);
+  }
 
-error(msg: string){
-  alertify.error(msg);
-}
+  error(msg: string) {
+    alertify.error(msg);
+  }
 
-worning(msg: string){
-  alertify.worning(msg);
-}
+  worning(msg: string) {
+    alertify.worning(msg);
+  }
 
-message(msg: string){
-  alertify.message(msg);
-}
+  message(msg: string) {
+    alertify.message(msg);
+  }
+  confirm(title: string, msg: string, okCallback: () => any) {
+    alertify.confirm(title, msg, (e) => {
+      if (e) {
+        okCallback();
+      } else { }
+    }, () => { });
+  }
 
 
 
