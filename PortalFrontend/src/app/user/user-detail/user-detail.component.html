@@ -8,6 +8,10 @@
         <div class="card-body text-center">
           <h4 class="card-title">{{user?.userName}}, {{user?.age}}</h4>
           <p class="card-text">{{user?.city}}, {{user?.country}}</p>
+          <h5>Utworzono</h5>
+          <p class="card-text"> {{user?.created|date:'dd-MM-yyyy'}}</p>
+          <h5>Ostatnia aktywność</h5>
+          <p class="card-text"> {{user?.lastAction | timeAgo }}</p>
           <button class="btn btn-danger  btn-card">
             <i class="fa fa-heart"></i>
           </button>
@@ -66,7 +70,7 @@
                 </td>
               </tr>
               <tr>
-                <td >
+                <td>
                   <h5><i class="fa fa-venus-mars" aria-hidden="true"></i> Płęć</h5>
                   <p>{{user?.gender}}</p>
                 </td>

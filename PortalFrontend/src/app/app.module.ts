@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ValueComponent } from './value/value.component';
@@ -36,6 +36,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { BsDatepickerModule, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { plLocale } from 'ngx-bootstrap/locale';
+import { TimeAgoPipe } from './_pipe/time-ago.pipe';
 defineLocale('pl', plLocale);
 
 export function getToken() {
@@ -55,7 +56,8 @@ export function getToken() {
     UserCardComponent,
     UserDetailComponent,
     UserEditComponent,
-    PhotosComponent
+    PhotosComponent,
+    TimeAgoPipe
   ],
   imports: [
     BrowserModule,
