@@ -35,10 +35,7 @@ namespace Portal.API.Controllers
             userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
             if (await _repository.UserExists(userForRegisterDto.UserName))
                 return BadRequest("Użytkownik o takiej nazwie już istnieje!");
-            var userToCreate = new User
-            {
-                UserName = userForRegisterDto.UserName
-            };
+            var userToCreate = _mapper.Map<User>(userForRegisterDto);
             var createdUser = await _repository.Register(userToCreate, userForRegisterDto.password);
             return StatusCode(201);
         }

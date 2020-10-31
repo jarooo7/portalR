@@ -37,6 +37,7 @@ export class UserEditComponent implements OnInit {
     this.userService.updateUser(this.auth.dekoded.nameid, this.user)
       .subscribe(
         () => {
+          this.auth.currentUser = this.user;
           this.alerti.success('Profil pomyślnie zaktualizowany');
           this.editForm.reset(this.user);
         }, error => { this.alerti.error(error); }

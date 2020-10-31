@@ -6,37 +6,38 @@
       <span class="navbar-toggler-icon"></span>
     </button> -->
 
-      <ul *ngIf="loggedIn()" class="navbar-nav mr-auto ml-4 ">
-        <li class="nav-item mx-2" routerLinkActive="active">
-          <a class="nav-link h4" [routerLink]="['/uzytkownicy']"><i class="fa fa-user" aria-hidden="true"></i></a>
-        </li>
-        <li class="nav-item mx-2" routerLinkActive="active">
-          <a class="nav-link h4" [routerLink]="['/polubienia']"><i class="fa fa-heart" aria-hidden="true"></i></a>
-        </li>
-        <li class="nav-item mx-2" routerLinkActive="active">
-          <a class="nav-link h4" [routerLink]="['/wiadomosci']"><i class="fa fa-comment" aria-hidden="true"></i></a>
-        </li>
-        
-      </ul>
+    <ul *ngIf="loggedIn()" class="navbar-nav mr-auto ml-4 ">
+      <li class="nav-item mx-2" routerLinkActive="active">
+        <a class="nav-link h4" [routerLink]="['/uzytkownicy']"><i class="fa fa-user" aria-hidden="true"></i></a>
+      </li>
+      <li class="nav-item mx-2" routerLinkActive="active">
+        <a class="nav-link h4" [routerLink]="['/polubienia']"><i class="fa fa-heart" aria-hidden="true"></i></a>
+      </li>
+      <li class="nav-item mx-2" routerLinkActive="active">
+        <a class="nav-link h4" [routerLink]="['/wiadomosci']"><i class="fa fa-comment" aria-hidden="true"></i></a>
+      </li>
 
-      <div *ngIf="loggedIn()" class="dropdown  mr-5" dropdown>
-        
-        <a class="dropdown-toggle text-light" dropdownToggle>
-          <span class="mr-3"><img [src]="authService.currentUser.photoUrl"></span>
-          <!-- Witaj {{authService.dekoded?.unique_name |titlecase}}! -->
-        </a>
-        <div class="dropdown-menu " *dropdownMenu>
-          <a class="dropdown-item text-light"  [routerLink]="['/uzytkownicy/edycja']"><i class="fa fa-user mr-2 "></i> Edytuj profil</a>
-          <a class="dropdown-item text-light" (click)="logout()"><i class="fa fa-sign-out mr-2"></i> Wyloguj</a>
-        </div>
+    </ul>
+
+    <div *ngIf="loggedIn()" class="dropdown  mr-5" dropdown>
+
+      <a class="dropdown-toggle text-light" dropdownToggle>
+        <span class="mr-3"><img [src]="authService.currentUser.photoUrl ? authService.currentUser.photoUrl :
+             authService.currentUser.gender=='kobieta'? '../../assets/women.svg':'../../assets/men.svg'"></span>
+      </a>
+      <div class="dropdown-menu " *dropdownMenu>
+        <a class="dropdown-item text-light" [routerLink]="['/uzytkownicy/edycja']"><i class="fa fa-user mr-2 "></i>
+          Edytuj profil</a>
+        <a class="dropdown-item text-light" (click)="logout()"><i class="fa fa-sign-out mr-2"></i> Wyloguj</a>
       </div>
-    
-      <form *ngIf="!loggedIn()" #LogiForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
-        <input class="form-control mr-sm-2" type="text" placeholder="Login" [(ngModel)]="model.UserName" name="UserName"
-          required>
-        <input class="form-control mr-sm-2" type="password" placeholder="Hasło" [(ngModel)]="model.password"
-          name="password" required>
-        <button [disabled]="!LogiForm.valid" class="btn btn-primary my-2 my-sm-0" type="submit">Zaloguj</button>
-      </form>
     </div>
+
+    <form *ngIf="!loggedIn()" #LogiForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
+      <input class="form-control mr-sm-2" type="text" placeholder="Login" [(ngModel)]="model.UserName" name="UserName"
+        required>
+      <input class="form-control mr-sm-2" type="password" placeholder="Hasło" [(ngModel)]="model.password"
+        name="password" required>
+      <button [disabled]="!LogiForm.valid" class="btn btn-primary my-2 my-sm-0" type="submit">Zaloguj</button>
+    </form>
+  </div>
 </nav>

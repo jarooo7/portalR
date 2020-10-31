@@ -17,7 +17,7 @@ export class AuthService {
   currentUser: User;
   constructor(private http: HttpClient) { }
 
-  login(model: Login) {
+  login(model: any) {
     return this.http.post(this.baseAddress + 'login', model)
       .pipe(map((response: any) => {
         const user = response;
@@ -30,7 +30,7 @@ export class AuthService {
       }));
   }
 
-  register(model: Login) {
+  register(model: any) {
     return this.http.post(this.baseAddress + 'register', model);
   }
 
