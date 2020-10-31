@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Portal.API.Data;
 using Portal.API.DTOs;
+using Portal.API.Helpers;
 
 namespace Portal.API.Controllers
 {
     [Authorize]
     [ApiController]
+    [ServiceFilter(typeof(LogUserActivity))]
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
