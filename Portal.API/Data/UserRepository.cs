@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Portal.API.Helpers;
 using Portal.API.Models;
 
 namespace Portal.API.Data
@@ -26,10 +27,10 @@ namespace Portal.API.Data
             return user;
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<PagedList<User>> GetUsers(UserParams userParams)
         {
-            var users =  await _context.Users.Include(p=>p.Photos).ToListAsync();
-            return users;
+            var users =  _context.Users.Include(p=>p.Photos);
+            return await PagedList<User>.CreateListAsync(users, userParams.pageNumber,userParams.PageSize);
         }
          public async Task<Photo> GetMainPhotoForUser(int userId)
         {

@@ -1,5 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Portal.API.Helpers
 {
@@ -17,6 +19,16 @@ namespace Portal.API.Helpers
             response.Headers.Add("Application-Error", message);
             response.Headers.Add("Access-Control-Expose-Headers", "Application-Error");
             response.Headers.Add("Access-Control-Allow-Origin", "*");
+        }
+
+        public static void AddPagination(this HttpResponse response, int currantPage,
+        int itemPerPage,int totalItems,int totalPages){
+            var paginationHeader = new PaginationHeader(currantPage, itemPerPage,totalItems,totalPages);
+            var camelCaseFormater =  new JsonSerializerSettings();
+            camelCaseFormater.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            response.Headers.Add("Pagination", JsonConvert.SerializeObject(paginationHeader,camelCaseFormater));
+            response.Headers.Add("Access-Control-Expose-Headers", "Pagination");
         }
     }
 }
