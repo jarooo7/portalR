@@ -10,12 +10,16 @@ import { UserService } from '../_serwises/user/user.service';
 @Injectable()
 
 export class UserListResolver implements Resolve<User[]>{
+    pageNumber = 1;
+    pageSize = 12;
+
+
     constructor(
         private userService: UserService,
         private router: Router,
         private alerti: AlertifyService) { }
     resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
-        return this.userService.getUsers().pipe(
+        return this.userService.getUsers(this.pageNumber, this.pageSize).pipe(
             catchError(error => {
                 this.alerti.error('Problem z pobranem danych');
                 this.router.navigate(['/home']);

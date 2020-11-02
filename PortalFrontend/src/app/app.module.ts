@@ -37,6 +37,7 @@ import { BsDatepickerModule, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { plLocale } from 'ngx-bootstrap/locale';
 import { TimeAgoPipe } from './_pipe/time-ago.pipe';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 defineLocale('pl', plLocale);
 
 export function getToken() {
@@ -70,6 +71,7 @@ export function getToken() {
         disallowedRoutes: ['http://localhost:5000/auth/'],
       },
     }),
+    PaginationModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),

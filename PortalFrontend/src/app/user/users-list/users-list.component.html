@@ -5,4 +5,11 @@
       <app-user-card [user]="user"></app-user-card>
     </div>
   </div>
+  <div class="row">
+    <pagination class="ml-auto pagination-success pagination-lg mt-3" [totalItems]="page.totalItems" [itemsPerPage]="page.itemPerPage"
+     [(ngModel)]="page.currantPage" [maxSize]="5" previousText = "&lsaquo;" 
+     nextText = "&rsaquo;" firstText = "&laquo;" lastText = "&raquo;"  [boundaryLinks]="true"
+     (pageChanged)="pageChanged($event)"
+     ></pagination>
+  </div>
 </div>
