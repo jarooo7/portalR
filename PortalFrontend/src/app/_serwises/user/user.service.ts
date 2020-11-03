@@ -34,6 +34,7 @@ export class UserService {
       if (userParams.city !== '' && userParams.city != null) {
         params = params.append('city', userParams.city);
       }
+      params = params.append('orderBy', userParams.orderBy);
     }
     return this.http.get<User[]>(this.baseUrl + 'user', { observe: 'response', params }).pipe(
       map(

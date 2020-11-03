@@ -14,9 +14,16 @@ import { UserService } from 'src/app/_serwises/user/user.service';
 export class UsersListComponent implements OnInit {
 
   page: Pagination;
+  sortParam = 'Ostatnia aktywność';
 
   genderList = [{ value: 'mężczyzna', display: 'Meżczyźni' },
   { value: 'kobieta', display: 'Kobiety' }];
+
+  sortList = [
+    { value: 'lastAction', display: 'Ostatnia aktywność', id: 0 },
+    { value: 'age', display: 'Wiek', id: 1 },
+    { value: 'userName', display: 'Nazwa użytkownika', id: 2 },
+    { value: 'created', display: 'Data dołaczenia', id: 3 }];
   userParams: any = {};
   user: User;
 
@@ -34,7 +41,7 @@ export class UsersListComponent implements OnInit {
     this.userParams.city = '';
     this.userParams.minAge = 16;
     this.userParams.maxAge = 100;
-    this.userParams.orderBy = 'lastActive';
+    this.userParams.orderBy = 'lastAction';
 
   }
   pageChanged(event: any): void {
@@ -58,7 +65,13 @@ export class UsersListComponent implements OnInit {
     this.userParams.city = '';
     this.userParams.minAge = 16;
     this.userParams.maxAge = 100;
-    this.userParams.orderBy = 'lastActive';
+    this.userParams.orderBy = 'lastAction';
+    this.loadUsers();
+  }
+
+  sort(orderBy: number) {
+    this.userParams.orderBy = this.sortList[orderBy].value;
+    this.sortParam = this.sortList[orderBy].display;
     this.loadUsers();
   }
 }

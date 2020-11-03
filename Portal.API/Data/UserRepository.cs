@@ -30,7 +30,7 @@ namespace Portal.API.Data
 
         public async Task<PagedList<User>> GetUsers(UserParams userParams)
         {
-            var users = _context.Users.Include(p => p.Photos).AsQueryable();
+            var users = _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastAction).AsQueryable();
             users = users.Where(u => u.Id != userParams.UserId);
             users = users.Where(u => u.Gender == userParams.Gender);
             if (userParams.MinAge != 18 || userParams.MaxAge != 100)
@@ -39,10 +39,30 @@ namespace Portal.API.Data
                 var maxDate = DateTime.Today.AddYears(-userParams.MinAge);
                 users = users.Where(u => u.DateOfBirth >= minDate && u.DateOfBirth <= maxDate);
             }
-            if(userParams.City!=""){
+            if (userParams.City != "")
+            {
                 users = users.Where(u => u.City.ToUpper() == userParams.City.ToUpper());
             }
-            
+
+            if (!string.IsNullOrEmpty(userParams.OrderBy))
+            {
+                switch (userParams.OrderBy)
+                {
+                    case "created":
+                        users = users.OrderByDescending(u => u.Created);
+                        break;
+                    case "age":
+                        users = users.OrderByDescending(u => u.DateOfBirth);
+                        break;
+                    case "userName":
+                        users = users.OrderBy(u => u.UserName);
+                        break;
+                    default:
+                        users = users.OrderByDescending(u => u.LastAction);
+                        break;
+                }
+            }
+
             return await PagedList<User>.CreateListAsync(users, userParams.pageNumber, userParams.PageSize);
         }
         public async Task<Photo> GetMainPhotoForUser(int userId)
