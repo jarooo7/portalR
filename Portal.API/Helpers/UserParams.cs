@@ -8,7 +8,7 @@ namespace Portal.API.Helpers
         public int PageSize
         {
             get { return pageSize; }
-            set { pageSize = (value > MaxPageSize)? MaxPageSize:value; }
+            set { pageSize = (value > MaxPageSize) ? MaxPageSize : value; }
         }
         public int UserId { get; set; }
         public string Gender { get; set; }
@@ -18,6 +18,7 @@ namespace Portal.API.Helpers
 
         public string City { get; set; } = "";
         public string OrderBy { get; set; }
-        
+        public bool UserLikes { get; set; }=false;
+        public bool UserIsLiked { get; set; } = false;
     }
 }

@@ -33,6 +33,18 @@ namespace Portal.API.Data
             var users = _context.Users.Include(p => p.Photos).OrderByDescending(u => u.LastAction).AsQueryable();
             users = users.Where(u => u.Id != userParams.UserId);
             users = users.Where(u => u.Gender == userParams.Gender);
+            
+            if (userParams.UserLikes)
+            {
+                var userLikes = await GetUserLikes(userParams.UserId, userParams.UserLikes);
+                users = users.Where(u => userLikes.Contains(u.Id));
+            }
+
+            if (userParams.UserIsLiked)
+            {
+                var userIsLiked = await GetUserLikes(userParams.UserId, userParams.UserLikes);
+                users = users.Where(u => userIsLiked.Contains(u.Id));
+            }
             if (userParams.MinAge != 18 || userParams.MaxAge != 100)
             {
                 var minDate = DateTime.Today.AddYears(-userParams.MaxAge - 1);
@@ -74,5 +86,22 @@ namespace Portal.API.Data
         {
             return await _context.Likes.FirstOrDefaultAsync(u => u.userLikesId == userId && u.userIsLikedId ==recipientId);
         }
+         private async Task<IEnumerable<int>> GetUserLikes(int id, bool userLikes)
+        {
+            var user = await _context.Users
+                                .Include(x => x.UserLikes)
+                                .Include(x => x.UserIsLiked)
+                                .FirstOrDefaultAsync(u => u.Id == id);
+
+            if (userLikes)
+            {
+                return user.UserLikes.Where(u => u.userIsLikedId == id).Select(i => i.userLikesId);
+            }
+            else
+            {
+                return user.UserIsLiked.Where(u => u.userLikesId == id).Select(i => i.userIsLikedId);
+            }
+        }
+
     }
 }
