@@ -39,6 +39,7 @@ namespace Portal.API.Models
         public string IDontLike { get; set; }
 
         public ICollection<Photo> Photos { get; set; }
-    
+        public ICollection<Like> UserLikes { get; set; }
+        public ICollection<Like> UserIsLiked { get; set; }
     }
 }
