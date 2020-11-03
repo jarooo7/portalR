@@ -69,5 +69,10 @@ namespace Portal.API.Data
         {
             return await _context.Photos.Where(u => u.UserId == userId).FirstOrDefaultAsync(p => p.isMain);
         }
+
+        public async Task<Like> GetLike(int userId, int recipientId)
+        {
+            return await _context.Likes.FirstOrDefaultAsync(u => u.userLikesId == userId && u.userIsLikedId ==recipientId);
+        }
     }
 }
