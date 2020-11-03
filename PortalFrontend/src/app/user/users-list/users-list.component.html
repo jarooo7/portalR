@@ -1,15 +1,55 @@
 <div class="container">
-
   <div class="row">
-    <div *ngFor="let user of users" class="col-lg-4 col-md-6 col-sm-12">
-      <app-user-card [user]="user"></app-user-card>
+    
+    <div class="col-md-3 mt-5">
+      <div class="alert alert-dismissible alert-success">
+        <strong>{{users.length}} z {{page.totalItems}}</strong> Wyników
+      </div>
+      <form class="form mt-5 " #form="ngForm" (ngSubmit)="loadUsers()" novalidate>
+        <div class="form-group">
+          <label for="minAge">Wiek od {{userParams.minAge}} lat</label>
+          <input type="range" min="16" max="100" ma class="form-control-range" id="minAge" [(ngModel)]="userParams.minAge" name="minAge">
+        </div>
+        <div class="form-group px-2">
+          <label for="maxAge">Wiek do {{userParams.maxAge}} lat</label>
+          <input type="range" min="16" max="100" ma class="form-control-range" id="maxAge" [(ngModel)]="userParams.maxAge" name="maxAge">
+        </div>
+        <div class="form-group px-2">
+          <label for="gender">Płeć: </label>
+          <select class="form-control ml-1" id="gender" [(ngModel)]="userParams.gender" name="gender">
+            <option *ngFor="let gender of genderList" [value]="gender.value">
+              {{ gender.display }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group px-2">
+          <label for="gender">Miasto: </label>
+          <input type="text" class="form-control ml-1" id="city" [(ngModel)]="userParams.city" name="city">
+        </div>
+        <button type="submit" class="btn btn-info btn-block" style="margin-left:10px">Zastosuj filtr</button>
+        <button type="button" class="btn btn-danger btn-block" style="margin-left:10px" (click)="resetFilters()">Zresetuj
+          filtr</button>
+      </form>
     </div>
-  </div>
-  <div class="row">
-    <pagination class="ml-auto pagination-success pagination-lg mt-3" [totalItems]="page.totalItems" [itemsPerPage]="page.itemPerPage"
-     [(ngModel)]="page.currantPage" [maxSize]="5" previousText = "&lsaquo;" 
-     nextText = "&rsaquo;" firstText = "&laquo;" lastText = "&raquo;"  [boundaryLinks]="true"
-     (pageChanged)="pageChanged($event)"
-     ></pagination>
+    <div class="col-md-9">
+      <div class="row">
+        <pagination class="ml-auto pagination-success pagination-lg mt-3" [totalItems]="page.totalItems"
+          [itemsPerPage]="page.itemPerPage" [(ngModel)]="page.currantPage" [maxSize]="5" previousText="&lsaquo;"
+          nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [boundaryLinks]="true"
+          (pageChanged)="pageChanged($event)"></pagination>
+
+      </div>
+      <div class="row">
+        <div *ngFor="let user of users" class="col-lg-4 col-md-6 col-sm-12">
+          <app-user-card [user]="user"></app-user-card>
+        </div>
+      </div>
+      <div class="row">
+        <pagination class="ml-auto pagination-success pagination-lg mt-3" [totalItems]="page.totalItems"
+          [itemsPerPage]="page.itemPerPage" [(ngModel)]="page.currantPage" [maxSize]="5" previousText="&lsaquo;"
+          nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" pageBtnClass="btn-page" [boundaryLinks]="true"
+          (pageChanged)="pageChanged($event)"></pagination>
+      </div>
+    </div>
   </div>
 </div>

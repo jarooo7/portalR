@@ -10,6 +10,13 @@ namespace Portal.API.Helpers
             get { return pageSize; }
             set { pageSize = (value > MaxPageSize)? MaxPageSize:value; }
         }
+        public int UserId { get; set; }
+        public string Gender { get; set; }
+
+        public int MinAge { get; set; } = 16;
+        public int MaxAge { get; set; } = 100;
+
+        public string City { get; set; } = "";
         
     }
 }

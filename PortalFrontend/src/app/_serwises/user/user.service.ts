@@ -14,11 +14,12 @@ import { environment } from 'src/environments/environment';
 export class UserService {
 
   baseUrl = environment.apiUrl;
+  user: User = JSON.parse(localStorage.getItem('user'));
 
 
   constructor(private http: HttpClient) { }
 
-  getUsers(page?, itemsPerPage?): Observable<PaginationResult<User[]>> {
+  getUsers(page?, itemsPerPage?, userParams?): Observable<PaginationResult<User[]>> {
     const paginationResult: PaginationResult<User[]> = new PaginationResult<User[]>();
     let params = new HttpParams();
     if (page != null && itemsPerPage != null) {
@@ -26,19 +27,26 @@ export class UserService {
       params = params.append('pageSize', itemsPerPage);
 
     }
-
+    if (userParams != null) {
+      params = params.append('minAge', userParams.minAge ? userParams.minAge : 18);
+      params = params.append('maxAge', userParams.maxAge ? userParams.maxAge : 100);
+      params = params.append('gender', userParams.gender);
+      if (userParams.city !== '' && userParams.city != null) {
+        params = params.append('city', userParams.city);
+      }
+    }
     return this.http.get<User[]>(this.baseUrl + 'user', { observe: 'response', params }).pipe(
       map(
         response => {
           paginationResult.result = response.body;
           if (response.headers.get('Pagination') != null) {
-            paginationResult.pagination = JSON.parse( response.headers.get('Pagination'));
+            paginationResult.pagination = JSON.parse(response.headers.get('Pagination'));
           }
 
           return paginationResult;
         }
       )
-   );
+    );
   }
   getUser(id: number): Observable<User> {
     return this.http.get<User>(this.baseUrl + 'user/' + id);

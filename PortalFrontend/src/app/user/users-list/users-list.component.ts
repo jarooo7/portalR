@@ -15,6 +15,11 @@ export class UsersListComponent implements OnInit {
 
   page: Pagination;
 
+  genderList = [{ value: 'mężczyzna', display: 'Meżczyźni' },
+  { value: 'kobieta', display: 'Kobiety' }];
+  userParams: any = {};
+  user: User;
+
   users: User[];
 
   constructor(private userService: UserService, private alertity: AlertifyService, private route: ActivatedRoute) { }
@@ -24,6 +29,12 @@ export class UsersListComponent implements OnInit {
       this.users = data.users.result;
       this.page = data.users.pagination;
     });
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.userParams.gender = this.user.gender === 'kobieta' ? 'mężczyzna' : 'kobieta';
+    this.userParams.city = '';
+    this.userParams.minAge = 16;
+    this.userParams.maxAge = 100;
+    this.userParams.orderBy = 'lastActive';
 
   }
   pageChanged(event: any): void {
@@ -31,12 +42,23 @@ export class UsersListComponent implements OnInit {
     this.loadUsers();
   }
   loadUsers() {
-    this.userService.getUsers(this.page.currantPage, this.page.itemPerPage)
-     .subscribe((res: PaginationResult<User[]>) => {
-      this.users = res.result;
-      this.page = res.pagination;
-    }, error => {
-      this.alertity.error(error);
-    });
+    console.log(this.userParams);
+
+    this.userService.getUsers(this.page.currantPage, this.page.itemPerPage, this.userParams)
+      .subscribe((res: PaginationResult<User[]>) => {
+        this.users = res.result;
+        this.page = res.pagination;
+      }, error => {
+        this.alertity.error(error);
+      });
+  }
+
+  resetFilters() {
+    this.userParams.gender = this.user.gender === 'kobieta' ? 'mężczyzna' : 'kobieta';
+    this.userParams.city = '';
+    this.userParams.minAge = 16;
+    this.userParams.maxAge = 100;
+    this.userParams.orderBy = 'lastActive';
+    this.loadUsers();
   }
 }
