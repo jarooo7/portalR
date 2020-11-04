@@ -13,7 +13,6 @@ export class AuthService {
   private baseAddress = environment.apiUrl + 'auth/';
   dekoded: any;
   jwthelper = new JwtHelperService();
-  decodedToken: any;
   currentUser: User;
   constructor(private http: HttpClient) { }
 
