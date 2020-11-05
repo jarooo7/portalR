@@ -1,3 +1,43 @@
-<p>
-  likes works!
-</p>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="alert alert-dismissible alert-success">
+        <strong>{{users.length}} z {{pagination.totalItems}}</strong> Wyników
+      </div>
+      <div class="btn-group-vertical  btn-block ">
+        <button class="btn  btn-lg  btn-block" [ngClass]="likesParam == 'All' ? 'btn-info' : 'btn-outline-info'"
+          (click)="loadUsersLike('All')">
+          Dopasowania</button>
+        <button class="btn btn-lg  btn-block "
+          [ngClass]="likesParam == 'UserIsLiked' ? 'btn-info' : 'btn-outline-info'"
+          (click)="loadUsersLike('UserIsLiked')">
+          Lubisz </button>
+        <button class="btn btn-lg  btn-block "
+          [ngClass]="likesParam == 'UserLikes' ? 'btn-info' : 'btn-outline-info'"
+          (click)="loadUsersLike('UserLikes')">
+          Lubią Cię</button>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="row">
+        <pagination class="ml-auto" [boundaryLinks]="true" [totalItems]="pagination.totalItems"
+          [itemsPerPage]="pagination.itemPerPage" [(ngModel)]="pagination.currantPage"
+          (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+          lastText="&raquo;">
+        </pagination>
+      </div>
+      <div class="row">
+        <div *ngFor="let user of users" class="col-lg-4 col-md-6 col-sm-12">
+          <app-user-card [user]="user"></app-user-card>
+        </div>
+      </div>
+      <div class="row">
+        <pagination class="ml-auto" [boundaryLinks]="true" [totalItems]="pagination.totalItems"
+          [itemsPerPage]="pagination.itemPerPage" [(ngModel)]="pagination.currantPage"
+          (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+          lastText="&raquo;">
+        </pagination>
+      </div>
+    </div>
+  </div>
+</div>

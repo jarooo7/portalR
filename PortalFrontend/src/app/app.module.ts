@@ -38,6 +38,7 @@ import { defineLocale } from 'ngx-bootstrap/chronos';
 import { plLocale } from 'ngx-bootstrap/locale';
 import { TimeAgoPipe } from './_pipe/time-ago.pipe';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { LikeResolver } from './_resolvers/like.resolver';
 defineLocale('pl', plLocale);
 
 export function getToken() {
@@ -90,6 +91,7 @@ export function getToken() {
     UserDetailResolver,
     UserListResolver,
     UserEditResolver,
+    LikeResolver,
     PreventUnsavedChanges
   ],
   bootstrap: [AppComponent]

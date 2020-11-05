@@ -41,5 +41,8 @@ namespace Portal.API.Models
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Like> UserLikes { get; set; }
         public ICollection<Like> UserIsLiked { get; set; }
+
+         public ICollection<Message> MessagesSent { get; set; }  // wiadomosci wysłane
+        public ICollection<Message> MessagesRecived { get; set; }  // wiadomosci odebrane
     }
 }
