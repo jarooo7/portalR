@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { observable, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Message } from 'src/app/_models/Message';
 import { PaginationResult } from 'src/app/_models/pagination';
 import { User } from 'src/app/_models/User.model';
 import { environment } from 'src/environments/environment';
@@ -82,6 +83,32 @@ export class UserService {
 
   sendLike(userId: number, recipientId: number) {
     return this.http.post(this.baseUrl + 'user/' + userId + '/like/' + recipientId, {});
+  }
+
+  getMessages(id: number, page?, itemsPerPage?, messageContainer?) {
+
+    const paginationResult: PaginationResult<Message[]> = new PaginationResult<Message[]>();
+    let params = new HttpParams();
+
+    params = params.append('MessageContainer', messageContainer);
+
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+
+    return this.http.get<Message[]>(this.baseUrl + 'user/' + id + '/message', { observe: 'response', params })
+      .pipe(
+        map(response => {
+          paginationResult.result = response.body;
+
+          if (response.headers.get('Pagination') != null) {
+            paginationResult.pagination = JSON.parse(response.headers.get('Pagination'));
+          }
+
+          return paginationResult;
+        })
+      );
   }
 
 }

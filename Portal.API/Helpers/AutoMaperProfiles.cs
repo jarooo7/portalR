@@ -36,8 +36,12 @@ namespace Portal.API.Helpers
             CreateMap<Message, MessageToReturnDto>()
                 .ForMember(m => m.SenderPhotoUrl, opt => opt
                     .MapFrom(u => u.Sender.Photos.FirstOrDefault(p => p.isMain).Url))
+                .ForMember(m => m.SenderGender, opt => opt
+                    .MapFrom(u => u.Sender.Gender))
                 .ForMember(m => m.RecipientPhotoUrl, opt => opt
-                    .MapFrom(u => u.Recipient.Photos.FirstOrDefault(p => p.isMain).Url));
+                    .MapFrom(u => u.Recipient.Photos.FirstOrDefault(p => p.isMain).Url))
+                 .ForMember(m => m.RecipientGender, opt => opt
+                    .MapFrom(u => u.Recipient.Gender));
         }
     }
 }

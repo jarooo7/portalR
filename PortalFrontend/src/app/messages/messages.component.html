@@ -1,3 +1,25 @@
-<p>
-  messages works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-lg-5 ">
+      <div class="row msg-item pt-4 pr-2" *ngFor="let msg of messages">
+        <div class="col w-img">
+          <img [src]="msg.senderId==authService.dekoded.nameid ?
+           msg.recipientPhotoUrl?  msg.recipientPhotoUrl :
+           msg.recipientGender=='kobieta'? '../../assets/women.svg':'../../assets/men.svg'
+           : msg.senderPhotoUrl?  msg.recipientPhotoUrl :
+           msg.senderGender=='kobieta'? '../../assets/women.svg':'../../assets/men.svg'" class="img-avatar"></div>
+        <div class="col ">
+          <div class="app">
+            <h4>
+              {{msg.senderId==authService.dekoded.nameid ? msg.recipientUsername:msg.senderUsername}}
+            </h4>
+            <p> {{msg.content}}</p>
+          </div>
+          <div class="row"><p class="ml-auto">{{msg.dateSent| timeAgo }}</p></div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
