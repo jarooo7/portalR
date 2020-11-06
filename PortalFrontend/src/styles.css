@@ -58,6 +58,26 @@
     padding: 15px 0;
   }
   .page-item.active .page-link {
-    background-color:  #4bbf73!important;
-    border-color:  #4bbf73!important;
+    background-color:  rgb(52, 58, 64)!important;
+    border-color: rgb(52, 58, 64)!important;
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }

@@ -171,16 +171,15 @@ namespace Portal.API.Data
             return await PagedList<Message>.CreateListAsync(messages, messageParams.PageNumber, messageParams.PageSize);
         }
 
-        public async Task<IEnumerable<Message>> GetMsgsThred(int userId, int recipientId)
+        public async Task<PagedList<Message>> GetMsgsThred(int userId, int recipientId, MessageParams messageParams)
         {
-            var messages = await _context.Messages
+            var messages = _context.Messages
                                .Include(u => u.Sender).ThenInclude(p => p.Photos)
                                .Include(u => u.Recipient).ThenInclude(p => p.Photos)
                                .Where(m => m.RecipientId == userId && m.SenderId == recipientId && m.RecipientDeleted == false
                                    || m.RecipientId == recipientId && m.SenderId == userId && m.SenderDeleted == false)
-                               .OrderByDescending(m => m.DateSent)
-                               .ToListAsync();
-            return messages;
+                               .OrderByDescending(m => m.DateSent);
+            return await PagedList<Message>.CreateListAsync(messages, messageParams.PageNumber, messageParams.PageSize);
         }
     }
 }

@@ -1,7 +1,13 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6 col-lg-5 ">
-      <div class="row msg-item pt-4 pr-2" *ngFor="let msg of messages">
+    <div class="col-md-6 col-lg-5 search-results" infiniteScroll
+    [scrollWindow]="false"
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()">
+ 
+      <div class="row msg-item pt-4 pr-2" *ngFor="let msg of messages" 
+      (click)="changeChat(msg.senderId==authService.dekoded.nameid ? msg.recipientId:msg.senderId)">
         <div class="col w-img">
           <img [src]="msg.senderId==authService.dekoded.nameid ?
            msg.recipientPhotoUrl?  msg.recipientPhotoUrl :
@@ -20,6 +26,10 @@
 
 
       </div>
+  
+    </div>
+    <div class="col-lg-7 col-md-6">
+          <app-chat [recipientId]="recipientId"></app-chat>
     </div>
   </div>
 </div>

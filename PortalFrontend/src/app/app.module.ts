@@ -40,6 +40,9 @@ import { TimeAgoPipe } from './_pipe/time-ago.pipe';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { LikeResolver } from './_resolvers/like.resolver';
 import { MessageResolver } from './_resolvers/message.resolver';
+import { ChatComponent } from './chat/chat.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 defineLocale('pl', plLocale);
 
 export function getToken() {
@@ -60,8 +63,9 @@ export function getToken() {
     UserDetailComponent,
     UserEditComponent,
     PhotosComponent,
-    TimeAgoPipe
-  ],
+    TimeAgoPipe,
+    ChatComponent
+   ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -81,7 +85,9 @@ export function getToken() {
     NgxGalleryModule,
     FileUploadModule,
     ReactiveFormsModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(), 
+    InfiniteScrollModule,
+    PopoverModule.forRoot()
   ],
   providers: [
     AuthService,

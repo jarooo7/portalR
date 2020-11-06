@@ -63,12 +63,14 @@ namespace Portal.API.Controllers
         }
 
         [HttpGet("thread/{recipientId}")]
-        public async Task<IActionResult> GetMessageThread(int userId, int recipientId)
+        public async Task<IActionResult> GetMessageThread(int userId, int recipientId, [FromQuery]MessageParams messageParams)
         {
              if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
-            var messagesFromRepo = await _repository.GetMsgsThred(userId,recipientId);
+            messageParams.UserId = userId;
+
+            var messagesFromRepo = await _repository.GetMsgsThred(userId,recipientId, messageParams);
             var messageThread = _mapper.Map<IEnumerable<MessageToReturnDto>>(messagesFromRepo);
 
             return Ok(messageThread);

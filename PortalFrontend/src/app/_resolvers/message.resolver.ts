@@ -13,7 +13,7 @@ import { UserService } from '../_serwises/user/user.service';
 
 export class MessageResolver implements Resolve<Message[]>{
     pageNumber = 1;
-    pageSize = 6;
+    pageSize = 5;
     messageContainer = 'Panel';
 
 

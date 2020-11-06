@@ -33,3 +33,10 @@
 .msg-item:hover{
     background-color: rgba(0,0,0,.05);;
 }
+
+.search-results{
+    height: 70vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+}

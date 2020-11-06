@@ -19,6 +19,7 @@ export class MessagesComponent implements OnInit {
   pagination: Pagination;
   messageContainer = 'panel';
   flagaOutbox = false;
+  recipientId: number;
 
   constructor(
     private userService: UserService,
@@ -31,6 +32,9 @@ export class MessagesComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.messages = data.messages.result;
       this.pagination = data.messages.pagination;
+      this.recipientId = data.messages.result[0].senderId == this.authService.dekoded.nameid ?
+        data.messages.result[0].recipientId :
+        data.messages.result[0].senderId;
     });
   }
 
@@ -39,9 +43,9 @@ export class MessagesComponent implements OnInit {
     this.userService.getMessages(this.authService.dekoded.nameid, this.pagination.currantPage,
       this.pagination.itemPerPage, this.messageContainer)
       .subscribe((res: PaginationResult<Message[]>) => {
-        this.messages = res.result;
+        console.log(res.result);
+        Array.prototype.push.apply(this.messages,res.result);
         this.pagination = res.pagination;
-
       }, error => {
         this.alertify.error(error);
       });
@@ -49,6 +53,16 @@ export class MessagesComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.pagination.currantPage = event.page;
+    this.loadMessages();
+  }
+
+  changeChat(id: number) {
+    this.recipientId = id;
+  }
+
+  onScroll() {
+    console.log('scroll');
+    this.pagination.currantPage++;
     this.loadMessages();
   }
 }

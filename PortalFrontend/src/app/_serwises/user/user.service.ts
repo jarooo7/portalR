@@ -111,4 +111,27 @@ export class UserService {
       );
   }
 
+  getMessageThread(id: number, recipientId: number,  page?, itemsPerPage?) {
+    const paginationResult: PaginationResult<Message[]> = new PaginationResult<Message[]>();
+    let params = new HttpParams();
+    params = params.append('MessageContainer', 'brak');
+
+    if (page != null && itemsPerPage != null) {
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
+    }
+    return this.http.get<Message[]>(this.baseUrl + 'user/' + id + '/message/thread/' + recipientId, { observe: 'response', params })
+    .pipe(
+      map(response => {
+        paginationResult.result = response.body;
+
+        if (response.headers.get('Pagination') != null) {
+          paginationResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+
+        return paginationResult;
+      })
+    );
+  }
+
 }

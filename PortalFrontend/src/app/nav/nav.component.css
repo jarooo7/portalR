@@ -17,10 +17,10 @@ img{
    background-color:  #4bbf73!important;
 }
 .dropdown-item{
-    background-color:  #4bbf73!important;
+    background-color:  rgb(52, 58, 64)!important;
 }
 .dropdown-item:hover{
-    background-color:  #3f995e!important;
+    background-color:  rgb(52, 58, 64)!important;
 }
 .navbar-nav{
     flex-direction: row;

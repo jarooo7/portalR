@@ -3,9 +3,9 @@ namespace Portal.API.Helpers
     public class MessageParams
     {
  
-        public const int MaxPageSize = 36;
+        public const int MaxPageSize = 20;
         public int PageNumber { get; set; } = 1;
-        private int pageSize = 18;
+        private int pageSize = 10;
         public int PageSize
         {
             get { return pageSize; }

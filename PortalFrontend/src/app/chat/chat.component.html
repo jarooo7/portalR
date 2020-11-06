@@ -1,0 +1,43 @@
+<div class="msg-pane">
+  <div class="msg-content-list text-center" #scrollMe (click)="onScroll()">
+    <button *ngIf="flagLink" type="button" class="btn btn-link mx-auto">Załaduj starsze</button>
+    <div *ngFor="let msg of messages">
+      <div class="row msg-content p-2 mr-5 m-3 alert-info" *ngIf="!isYou(msg.senderId) ">
+        <img [src]="msg.senderPhotoUrl?  
+    msg.senderPhotoUrl : msg.senderGender=='kobieta'? '../../assets/women.svg':'../../assets/men.svg'"
+          class="img-avatar">
+        <div class="col text-left">
+          <p> {{msg.senderUsername|uppercase}}</p>
+          {{msg.content}}
+          
+          <p class="msg-date msg-date-r">{{msg.dateSent|timeAgo}}</p>
+        </div>
+      </div>
+      <div class="row msg-content p-2 ml-5 m-3  alert-light" *ngIf="isYou(msg.senderId)">
+        <div class="col text-right">
+          <p> TY</p>
+          {{msg.content}}
+          <p class="msg-date msg-date-l">{{msg.dateSent|timeAgo}}</p>
+        </div>
+        <img [src]="msg.senderPhotoUrl?  
+    msg.senderPhotoUrl : msg.senderGender=='kobieta'? '../../assets/women.svg':'../../assets/men.svg'"
+          class="img-avatar">
+      </div>
+    </div>
+  </div>
+  <div style="position: relative; top: -45px">
+    <form #messageForm="ngForm" >
+      <div class="input-group">
+          <input type="text" 
+                 class="form-control input-sm"
+                 placeholder="wyślij prywatną wiadomość"
+                 
+                 name="content"
+                 required>
+          <div class="input-group-append">
+            <button class="btn btn-info" [disabled]="!messageForm.valid">Wyślij</button>
+          </div>
+      </div>    
+    </form>
+  </div>
+</div>

@@ -5,15 +5,15 @@
         <strong>{{users.length}} z {{pagination.totalItems}}</strong> Wyników
       </div>
       <div class="btn-group-vertical  btn-block ">
-        <button class="btn  btn-lg  btn-block" [ngClass]="likesParam == 'All' ? 'btn-info' : 'btn-outline-info'"
+        <button class="btn  btn-lg  btn-block" [ngClass]="likesParam == 'All' ? 'btn-dark' : 'btn-outline-dark'"
           (click)="loadUsersLike('All')">
           Dopasowania</button>
         <button class="btn btn-lg  btn-block "
-          [ngClass]="likesParam == 'UserIsLiked' ? 'btn-info' : 'btn-outline-info'"
+          [ngClass]="likesParam == 'UserIsLiked' ? 'btn-dark' : 'btn-outline-dark'"
           (click)="loadUsersLike('UserIsLiked')">
           Lubisz </button>
         <button class="btn btn-lg  btn-block "
-          [ngClass]="likesParam == 'UserLikes' ? 'btn-info' : 'btn-outline-info'"
+          [ngClass]="likesParam == 'UserLikes' ? 'btn-dark' : 'btn-outline-dark'"
           (click)="loadUsersLike('UserLikes')">
           Lubią Cię</button>
       </div>

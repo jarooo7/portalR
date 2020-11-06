@@ -14,7 +14,7 @@ namespace Portal.API.Data
          Task<Like> GetLike(int userId, int recipientId);
          Task<Message> GetMsg(int id);
          Task<PagedList<Message>> GetMsgsForUser(MessageParams messageParams);
-         Task<IEnumerable<Message>> GetMsgsThred(int userId, int recipientId);
+         Task<PagedList<Message>> GetMsgsThred(int userId, int recipientId, MessageParams messageParams);
     }
 
 }
