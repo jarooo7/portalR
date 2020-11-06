@@ -42,7 +42,8 @@ import { LikeResolver } from './_resolvers/like.resolver';
 import { MessageResolver } from './_resolvers/message.resolver';
 import { ChatComponent } from './chat/chat.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { PopoverModule } from 'ngx-bootstrap/popover';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { MsgModalComponent } from './user/msg-modal/msg-modal.component';
 defineLocale('pl', plLocale);
 
 export function getToken() {
@@ -64,8 +65,9 @@ export function getToken() {
     UserEditComponent,
     PhotosComponent,
     TimeAgoPipe,
-    ChatComponent
-   ],
+    ChatComponent,
+    MsgModalComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -85,9 +87,9 @@ export function getToken() {
     NgxGalleryModule,
     FileUploadModule,
     ReactiveFormsModule,
-    BsDatepickerModule.forRoot(), 
+    BsDatepickerModule.forRoot(),
     InfiniteScrollModule,
-    PopoverModule.forRoot()
+    ModalModule.forRoot()
   ],
   providers: [
     AuthService,
@@ -108,5 +110,5 @@ export class AppModule {
 
   constructor(private bsLocaleService: BsLocaleService) {
     this.bsLocaleService.use('pl');
-    }
- }
+  }
+}

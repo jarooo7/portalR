@@ -1,0 +1,39 @@
+.img-avatar{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: relative;
+}
+.msg-content{
+    border-radius: 40px;
+    border: 1px solid rgba(0,0,0,.125);
+}
+.w-img{
+    width: 70px;
+    max-width: 70px;
+}
+.msg-content-list{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: .25rem;
+    border: 1px solid rgba(0,0,0,.125);
+    height: 70vh;
+   padding-bottom: 45px;
+}
+
+.msg-date{
+    position:absolute; 
+    top:0; 
+    font-size:10px;
+    visibility: hidden;
+}
+.msg-content:hover .msg-date{
+    visibility: visible;
+}
+.msg-date-r{
+    right: 20px;
+}
+
+.msg-date-l{
+    left: 20px;
+}

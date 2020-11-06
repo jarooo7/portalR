@@ -48,7 +48,7 @@ export class ChatComponent implements AfterViewChecked {
           this.flagLink = false;
         }
         console.log(res.result);
-        
+
         const temp = res.result.reverse();
         Array.prototype.push.apply(temp, this.messages);
         this.messages = temp;
@@ -80,6 +80,5 @@ export class ChatComponent implements AfterViewChecked {
   onScroll() {
     this.currentPage++;
     this.loadMessages(this.ReId);
-    console.log('tu du');
   }
 }
