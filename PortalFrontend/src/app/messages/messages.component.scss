@@ -40,3 +40,14 @@
     overflow-x: hidden;
 
 }
+@media screen and (max-width: 768px) {
+    .title-message {
+      visibility: hidden;
+     
+      display: none;
+    }
+    .msg-item{
+        border-radius: .25rem;
+        border: 0 solid rgba(0,0,0,.125);
+    }
+}

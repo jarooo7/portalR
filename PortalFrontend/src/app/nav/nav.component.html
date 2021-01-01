@@ -22,7 +22,7 @@
     <div *ngIf="loggedIn()" class="dropdown  mr-5" dropdown>
 
       <a class="dropdown-toggle text-light" dropdownToggle>
-        <span class="mr-3"><img [src]="authService.currentUser.photoUrl ? authService.currentUser.photoUrl :
+        <span class="mr-3"><img id="avatar-user" [src]="authService.currentUser.photoUrl ? authService.currentUser.photoUrl :
              authService.currentUser.gender=='kobieta'? '../../assets/women.svg':'../../assets/men.svg'"></span>
       </a>
       <div class="dropdown-menu " *dropdownMenu>
