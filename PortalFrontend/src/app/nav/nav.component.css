@@ -1,7 +1,7 @@
 .dropdown-toggle, .dropdown-item{
     cursor: pointer;
 }
-img{
+#avatar-user{
     position: absolute;
     border: rgba(255, 255, 255, 1) 8px solid;
     height: 120px;
@@ -38,8 +38,12 @@ img{
 .nav-small:hover{
     opacity: 1;
 }
-.nav-small img{
+.nav-small #avatar-user{
     height: 70px;
     border-width: 5px;
     width: 70px;
+}
+
+.logo{
+    height: 50px;
 }
