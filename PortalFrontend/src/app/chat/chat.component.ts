@@ -1,4 +1,5 @@
 import { AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { merge } from 'rxjs';
 import { Message } from '../_models/Message';
 import { Pagination, PaginationResult } from '../_models/pagination';
 import { AlertifyService } from '../_serwises/alertify/alertify.service';
@@ -14,6 +15,7 @@ export class ChatComponent implements AfterViewChecked {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   ReId: number;
   @Input('recipientId')
+ 
   set in(val) {
     this.currentPage = 1;
     this.messages = [];
@@ -29,11 +31,15 @@ export class ChatComponent implements AfterViewChecked {
   };
   currentPage = 1;
   flagLink = true;
+  isStart=true;
 
   constructor(
     private userService: UserService,
     public authService: AuthService,
-    private alertify: AlertifyService) {
+    private alertify: AlertifyService,
+    
+    ) {
+      
   }
 
   loadMessages(re: number) {
@@ -47,16 +53,65 @@ export class ChatComponent implements AfterViewChecked {
         if (res.result.length < 6) {
           this.flagLink = false;
         }
-        console.log(res.result);
+        if(this.isStart){
+          var autoSaveInterval = setInterval( ()=>{
+            if(this.ReId!==null&&this.ReId!==undefined){
+              this.UpdateMsg();
+            }
+          },15000);
+          this.isStart=false;
+        }
 
         const temp = res.result.reverse();
-        Array.prototype.push.apply(temp, this.messages);
+
+         Array.prototype.push.apply(temp, this.messages);
         this.messages = temp;
         this.pagination = res.pagination;
       }, error => {
         this.alertify.error(error);
       });
   }
+
+
+
+
+  UpdateMsg() {
+    this.flagLink = true;
+    this.userService.getMessageThread(this.authService.dekoded.nameid, this.ReId,
+      1,
+      (this.pagination === undefined || this.pagination.itemPerPage === undefined) ? 6 : this.pagination.itemPerPage)
+      .subscribe((res: PaginationResult<Message[]>) => {
+
+        if (res.result.length < 6) {
+          this.flagLink = false;
+        }
+        const temp = res.result.reverse();
+        if(this.messages.length!==0){
+          if(this.messages[this.messages.length-1].id ===temp[temp.length-1].id){
+            return;
+          }
+        }
+        temp.forEach(x=>{
+          var flag = true;
+          this.messages.forEach(
+            y=>{
+              if(x.id===y.id){
+                flag=false
+              }
+            }
+          )
+          if(flag){
+            this.messages.push(x);
+          }
+        })
+        this.pagination = res.pagination;
+      }, error => {
+        this.alertify.error(error);
+      });
+  }
+
+
+
 
   pageChanged(event: any): void {
     this.pagination.currantPage = event.page;
