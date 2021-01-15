@@ -88,7 +88,8 @@ namespace Portal.API
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
