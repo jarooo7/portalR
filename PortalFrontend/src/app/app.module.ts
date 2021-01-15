@@ -44,6 +44,7 @@ import { ChatComponent } from './chat/chat.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { MsgModalComponent } from './user/msg-modal/msg-modal.component';
+import { NotAuthGuard } from './_guards/not-auth.guard';
 defineLocale('pl', plLocale);
 
 export function getToken() {
@@ -96,6 +97,7 @@ export function getToken() {
     AlertifyService,
     UserService,
     AuthGuard,
+    NotAuthGuard,
     ErrorInterceptorProvider,
     UserDetailResolver,
     UserListResolver,

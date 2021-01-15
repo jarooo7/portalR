@@ -6,6 +6,7 @@ import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { UsersListComponent } from './user/users-list/users-list.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { NotAuthGuard } from './_guards/not-auth.guard';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard.ts';
 import { LikeResolver } from './_resolvers/like.resolver';
 import { MessageResolver } from './_resolvers/message.resolver';
@@ -14,7 +15,7 @@ import { UserEditResolver } from './_resolvers/user-edit.resolver';
 import { UserListResolver } from './_resolvers/user-list.resolver';
 
 export const appRoutes: Routes = [
-    { path: '', component: HomeComponent },
+    { path: '', component: HomeComponent ,canActivate: [NotAuthGuard],},
     {
         path: '',
         runGuardsAndResolvers: 'always',
