@@ -1,6 +1,7 @@
 import { AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { merge } from 'rxjs';
-import { Message } from '../_models/Message';
+import { Message, SendMsg } from '../_models/Message';
 import { Pagination, PaginationResult } from '../_models/pagination';
 import { AlertifyService } from '../_serwises/alertify/alertify.service';
 import { AuthService } from '../_serwises/auth/auth.service';
@@ -11,7 +12,7 @@ import { UserService } from '../_serwises/user/user.service';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements AfterViewChecked {
+export class ChatComponent implements OnInit{
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   ReId: number;
   @Input('recipientId')
@@ -29,6 +30,7 @@ export class ChatComponent implements AfterViewChecked {
     totalItems: null,
     totalPages: null
   };
+  messageForm: FormGroup;
   currentPage = 1;
   flagLink = true;
   isStart=true;
@@ -37,9 +39,12 @@ export class ChatComponent implements AfterViewChecked {
     private userService: UserService,
     public authService: AuthService,
     private alertify: AlertifyService,
-    
+    private fb: FormBuilder
     ) {
       
+  }
+  ngOnInit(): void {
+    this.messageForm=this.fb.group( {content: ['', Validators.required]})
   }
 
   loadMessages(re: number) {
@@ -135,5 +140,19 @@ export class ChatComponent implements AfterViewChecked {
   onScroll() {
     this.currentPage++;
     this.loadMessages(this.ReId);
+  }
+
+  sendMsg(){
+    var msg :SendMsg={
+      content:this.messageForm.get('content').value,
+      recipientId: this.ReId
+    }
+    this.userService.sendMessage(this.authService.dekoded.nameid,msg).subscribe(
+      ()=>{
+        this.alertify.message('Wiadomość wysłana');
+        this.UpdateMsg();
+      }, error => {
+        this.alertify.error(error);}
+    )
   }
 }

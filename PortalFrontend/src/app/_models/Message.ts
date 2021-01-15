@@ -15,3 +15,7 @@ export interface Message {
     dateSent: Date;
     messageContainer: string;
 }
+export interface SendMsg{
+    recipientId: number;
+    content: string;
+}

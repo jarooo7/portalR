@@ -26,16 +26,16 @@
     </div>
   </div>
   <div style="position: relative; top: -45px">
-    <form #messageForm="ngForm" >
+    <form [formGroup]="messageForm" >
       <div class="input-group">
           <input type="text" 
                  class="form-control input-sm"
                  placeholder="wyślij prywatną wiadomość"
-                 
                  name="content"
+                 formControlName="content"
                  required>
           <div class="input-group-append">
-            <button class="btn btn-info" [disabled]="!messageForm.valid">Wyślij</button>
+            <button class="btn btn-info" (click)="sendMsg()" [disabled]="!messageForm.valid">Wyślij</button>
           </div>
       </div>    
     </form>

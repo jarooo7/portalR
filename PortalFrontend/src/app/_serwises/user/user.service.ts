@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { observable, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Message } from 'src/app/_models/Message';
+import { Message, SendMsg } from 'src/app/_models/Message';
 import { PaginationResult } from 'src/app/_models/pagination';
 import { User } from 'src/app/_models/User.model';
 import { environment } from 'src/environments/environment';
@@ -132,6 +132,9 @@ export class UserService {
         return paginationResult;
       })
     );
+  }
+  sendMessage(userId: number,msg: SendMsg){
+    return this.http.post(this.baseUrl + 'user/' + userId + '/message', msg);
   }
 
 }
