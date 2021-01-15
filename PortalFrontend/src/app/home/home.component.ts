@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   registerMod = false;
+  info = false;
 
   constructor() { }
 
@@ -18,6 +19,9 @@ export class HomeComponent implements OnInit {
   }
   cancel(a: string){
     this.registerMod = false;
+  }
+  toggleMore(){
+    this.info= !this.info;
   }
 
 }

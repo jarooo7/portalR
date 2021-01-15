@@ -14,5 +14,4 @@ function scrollFunction() {
           }
        
     }
-    console.log("chuj");
   }

@@ -1,5 +1,5 @@
-<form [formGroup]="registerForm" (ngSubmit)="register()">
-  <h2 class="text-center text-primary">Zapisz sie</h2>
+<form class="text-light" [formGroup]="registerForm" (ngSubmit)="register()">
+  <h2 class="text-center text-light">Zapisz sie</h2>
   <hr>
 
 
@@ -87,6 +87,6 @@
 
   <div class=" form-group text-center">
     <button class="btn btn-success m-2" type="submit">Rejestracja</button>
-    <button class="btn btn-defoult m-2" type="submit" (click)="cancel()">Anuluj</button>
+    <button class="btn btn-info m-2" type="submit" (click)="cancel()">Anuluj</button>
   </div>
 </form>
