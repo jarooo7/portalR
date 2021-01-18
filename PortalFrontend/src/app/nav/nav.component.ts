@@ -13,6 +13,7 @@ import { AuthService } from '../_serwises/auth/auth.service';
 export class NavComponent implements OnInit {
 
   model: Login = new Login();
+  formLogin=false;
 
   constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) { }
 
@@ -41,6 +42,13 @@ export class NavComponent implements OnInit {
     this.authService.dekoded = null;
     this.alertify.message('Wylogowałeś się');
     this.router.navigate(['/home']);
+  }
+
+  openLogin(){
+    this.formLogin=true;
+  }
+  closeLogin(){
+    this.formLogin=false;
   }
 
 }
