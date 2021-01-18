@@ -32,6 +32,7 @@ export class MessagesComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.messages = data.messages.result;
       this.pagination = data.messages.pagination;
+     // if(data.messages.result!==null&&data.messages.result.senderId !==undefined){ 
       this.recipientId = data.messages.result[0].senderId == this.authService.dekoded.nameid ?
         data.messages.result[0].recipientId :
         data.messages.result[0].senderId;

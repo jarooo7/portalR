@@ -21,9 +21,9 @@
 
     </ul>
 
-    <div *ngIf="loggedIn()" class="dropdown  mr-5" dropdown>
+    <div *ngIf="loggedIn()" class="dropdown  ml-auto mr-5" dropdown>
 
-      <a class="dropdown-toggle text-light" dropdownToggle>
+      <a class="dropdown-toggle text-light mr-5" dropdownToggle>
         <span class="mr-3"><img id="avatar-user" [src]="authService.currentUser.photoUrl ? authService.currentUser.photoUrl :
              authService.currentUser.gender=='kobieta'? '../../assets/women.svg':'../../assets/men.svg'"></span>
       </a>
@@ -33,13 +33,14 @@
         <a class="dropdown-item text-light" (click)="logout()"><i class="fa fa-sign-out mr-2"></i> Wyloguj</a>
       </div>
     </div>
-
-    <form *ngIf="!loggedIn()" #LogiForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
+    <button   *ngIf="!loggedIn()&&!formLogin" class="btn btn-primary " (click)="openLogin()">Zaloguj</button>
+    <form *ngIf="!loggedIn()&&formLogin" #LogiForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
       <input class="form-control mr-sm-2" type="text" placeholder="Login" [(ngModel)]="model.UserName" name="UserName"
         required>
       <input class="form-control mr-sm-2" type="password" placeholder="Hasło" [(ngModel)]="model.password"
         name="password" required>
       <button [disabled]="!LogiForm.valid" class="btn btn-primary my-2 my-sm-0" type="submit">Zaloguj</button>
+      <button class="btn btn-danger " (click)="closeLogin()">Anuluj</button>
     </form>
   </div>
 </nav>

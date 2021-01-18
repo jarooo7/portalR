@@ -57,7 +57,7 @@ namespace Portal.API.Controllers
             var TokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddHours(1),
+                Expires = DateTime.UtcNow.AddHours(12),
                 SigningCredentials = cred
             };
 
